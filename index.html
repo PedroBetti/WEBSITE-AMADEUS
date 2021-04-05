@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMADEUS APP</title>
+
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link type="image/x-icon" rel="icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <script scr="three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.min.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js"></script>
+    <script type="module" scr="GLTFLoader.js"></script>
+    <script src="./client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/baffle@0.3.6/dist/baffle.min.js"></script>
+
+</head>
+<body>
+    <section id="logo"><ul class="logo"></ul>
+
+        <ul class="logo1" id="logo1"><p>AMADEUS</p></ul>
+        <div class="container">
+            <div class="data">AMADEUS</div>
+        </div>
+
+        <script type="text/javascript">
+            const text = baffle(".data");
+            text.set({
+                characters : '▓<█ ▒▓▓▒> ▒█▓/< ▓/█ ▒///▒ ▒███ <▒░ ▓█▒█ ░/░>',
+                speed: 120
+            });
+            text.start();
+            text.reveal(4000);  
+        </script>
+
+
+    <ul class="fixMe">
+        <li ><a href="#logo"><h3>Home</h3></a></li>
+        <li ><a href="#demo"><h3>Demo</h3></a></li>
+        <li><a href="#DEV"><h3>Dev</h3></a></li>
+        <li><a href="#research"><h3>Research</h3></a></li>
+        <li><a href="#team"><h3>Team</h3></a></li>
+    </ul>
+    
+    <div class="threeJs">
+        <canvas class="webgl" ><script type="module">
+            import {GLTFLoader} from "./GLTFLoader.js";
+            
+            const canvas = document.querySelector('canvas.webgl');
+    
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000);
+            var renderer = new THREE.WebGLRenderer({alpha: true});
+            renderer.setSize(canvas.innerWidth, canvas.innerHeight);
+            document.body.appendChild(renderer.domElement);
+    
+    
+    
+            var loader = new THREE.GLTFLoader();
+            loader.load('scene1.gltf', function(gltf){
+                scene.add(gltf.scene);
+                gltf.position.set(0,-20,2);
+            });
+    
+            var light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.1);
+            scene.add(light);
+            //limits -10 ==> 10, rotaion y and postion x opp
+            camera.rotation.y = 10/180*Math.PI;
+            camera.rotation.x = 10/180*Math.PI;
+            camera.position.x = 0;
+            camera.position.y = 0;
+            camera.position.z = 140;
+    
+            const sizes = {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+    
+            window.addEventListener('resize', () =>
+            {
+                // Update sizes
+                sizes.width = window.innerWidth;
+                sizes.height = window.innerHeight;
+    
+                // Update camera
+                camera.aspect = sizes.width / sizes.height;
+                camera.updateProjectionMatrix();
+    
+                // Update renderer
+                renderer.setSize(sizes.width, sizes.height);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            });
+    
+            
+            renderer.setSize(sizes.width, sizes.height)
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    
+            document.addEventListener('mousemove', onDocumentMouseMove);
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+    
+            const windowX = window.innerWidth / 2;
+            const windowY = window.innerHeight / 2;
+    
+            function onDocumentMouseMove(event){
+                mouseX = (event.clientX - windowX)
+                mouseY = (event.clientY - windowY)
+            }
+    
+            function animate(){
+               requestAnimationFrame(animate);
+               renderer.render(scene, camera);
+    
+               camera.rotation.y = 0/180*Math.PI;
+               camera.rotation.y += 0.0002* mouseY;
+               camera.rotation.x = 0/180*Math.PI;
+               camera.rotation.y += 0.0002* mouseX;
+               camera.position.y += 0.0002 / windowY;
+    
+    
+            };
+            animate();
+        </script></canvas>
+    </div></section>
+        <section class="section2" >
+            <div class="text1">
+                <p id="demo">DEVELOPMENT</p>
+            </div>
+
+            <div class="text5">
+                <h5 id="demo">DEVELOPMENT</h5>
+            </div>
+
+            <div class="text6">
+                <h6></h6>
+            </div>
+
+            <div class="text7" >
+                <p id="DEV">ROADMAP</p>
+            </div>
+
+            <div class="text8" >
+                <p class="tech"id="research" >TECH</p>
+                <div class="res-card" data-tilt data-tilt-scale="1.01">
+                    <p>Amadeus is an ambitious project which requires knowledge of multiple systems that are currently at the forefront of scientific development. Because of this we have taken inspiration from some of the world's leading designers and scientists and mixed our magic along with it. We will cover some of the most important aspects of our app and the research we did which backs up and sheds some light on our work. Amadeus is built to break the walls between the normal person who does not understand much of the current scientific advances in AI, and allow them to interact with something that feels more human, and personal than any current AI system out there currently. All this is expertly crafted in a game package that provides more incentive for everyone to experience what A.I's have to offer and have fun while learning.</p>
+                    <p class="version">Learn More at :https://amadeusproject.format.com/research-overview</p>
+                </div>
+            </div>
+
+            <div class="text9" >
+                <p id="team">TEAM</p>
+            </div>
+            <div class="card4"  data-tilt data-tilt-scale="1.3" data-tilt-glare data-tilt-max-glare="0.7">
+                <div class="card-image5"></div>
+                    <div class="card-text4">
+                        <span class="date">Shiloh Light-Barnes</span>
+                        <h1>Developer</h1>
+                        <p>Shiloh practices several forms of digital art including sound design, visual marketing, graphic design. He also has experience programming in React Native and Unity C#. With games as a main focus, Shiloh has played a role in all aspects of game design creation, from game-theory to app store releases. </p>
+                        <p class="version">shilohlb@gmail.com</p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat"></div>
+                    </div>
+                
+            </div>
+            <div class="card5"  data-tilt data-tilt-scale="1.2" data-tilt-glare data-tilt-max-glare="0.7">
+                <div class="card-image4"></div>
+                    <div class="card-text4">
+                        <span class="date">Pedro H.C. Betti</span>
+                        <h1>Developer</h1>
+                        <p>Pedro is thoroughly well versed in computer programming languages such as Python, Javascript, CSS, HTML5, and C#. He also has additional experience in the machine learning, web server, and web design spaces.</p>
+                        <p class="version">phc.betti@gmail.com</p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat"></div>
+                    </div>
+                
+            </div>
+
+            <div class="text10" >
+                <p id="END">end</p>
+            </div>
+            <div class="card"  data-tilt data-tilt-scale="1.2" data-tilt-glare data-tilt-max-glare="0.7">
+                <div class="card-image1"></div>
+                    <div class="card-text">
+                        <span class="date">APRIL</span>
+                        <h1>ALPHA BUILD</h1>
+                        <p>- Website overhaul<br>- Web-based demo<br>- New UI color<br>- AI update</p>
+                        <p class="version">Ver.2.0</p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat"></div>
+                    </div>
+                
+            </div>
+            <div class="card2" data-tilt data-tilt-scale="1.2" data-tilt-glare data-tilt-max-glare="0.7">
+                <div class="card-image2"></div>
+                    <div class="card-text">
+                        <span class="date">MAY</span>
+                        <h1>PRE-BETA</h1>
+                        <p>- Gather data from alpha release<br>- Collect user feedback <br>- Run stress tests<br>- Prepare for Beta and V2 release</p>
+                        <p class="version">Ver.2.1</p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat"></div>
+                    </div>
+                
+            </div>
+            <div class="card3" data-tilt data-tilt-scale="1.2" data-tilt-glare data-tilt-max-glare="0.7">
+                <div class="card-image3"></div>
+                    <div class="card-text">
+                        <span class="date">JUNE</span>
+                        <h1>BETA BUILD</h1>
+                        <p>- Implement alpha feedback<br>- Polish front end application<br>- Further train Amadeus AI<br>- Launch Beta Build</p>
+                        <p class="version">Ver.2.2</p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat"></div>
+                    </div>
+                
+            </div>
+            
+            <script src="vanilla-tilt.min.js"></script>
+            </section>
+            
+            <section class="shiloh">
+                  <div class=main>
+                    <div class=left> 
+                      <img src="BotOrNotBanner.png"/>
+                    </div>
+                    <div class=right>
+                        <p> GIVE IT A TRY</p>
+                      <div class=top>
+                        <p> Speak in a way that only a human could understand. </p>
+                        <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Describe any emoji..." />
+                      </div>
+                      <div class=bottom>
+                        <canvas class="myCanvas">
+                            <script type="module">
+                                const canvas = document.querySelector(".myCanvas");
+                                const ctx = canvas.getContext("2d");
+                                fitToContainer(canvas);
+
+                                const input = document.querySelector('input');
+                                const emojis = [];
+                                var emojisLoaded = 0;
+
+                                var userInputString = "";
+
+
+                                let dX = 0;
+                                let dY = 0;
+                                let targetX = canvas.width/2;
+                                let targetY = canvas.height/2;
+                                let selectorX = targetX;
+                                let selectorY = targetY; 
+                                let classifiedEmojiIndex = 17;
+                                let gridPositionsX = [21];
+                                let gridPositionsY = [21];
+
+                                function fitToContainer(canvas){
+                                canvas.width  = canvas.offsetWidth;
+                                canvas.height = canvas.offsetHeight; 
+                                }
+                                window.addEventListener('resize', function(event){
+                                    fitToContainer(canvas);
+                                });
+
+
+                                //RUNS EVERY FRAME
+                                //WAITS UNTILL ALL EMOJIS ARE LOADED
+                                //DRAWS THE EMOJIS ON THE SCREEN
+                                //UPDATES WHERE THE SELECTOR (PURPLE RECTANGLE) SHOULD BE
+                                function draw(e) {
+
+                                if(emojisLoaded === 21){ 
+
+                                dX = targetX - selectorX;
+                                dY = targetY - selectorY;
+                                
+                                selectorX += (dX / 10);
+                                selectorY += (dY / 10);
+
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                                ctx.fillStyle = '#57358D';
+                                ctx.fill();
+                                
+                                ctx.roundRect(selectorX, selectorY, 112, 112, 8);
+
+                                drawEmojis();
+
+                                updateTargetPosition();
+
+                                }
+                                requestAnimationFrame(draw);
+                                }
+                                draw();
+
+                                //SETS THE TARGET POSITION FOR THE PURPLE RECTANGLE
+                                function updateTargetPosition(){
+                                targetX = gridPositionsX[classifiedEmojiIndex];
+                                targetY = gridPositionsY[classifiedEmojiIndex];
+                                }
+
+                                function drawEmojis(){
+
+                                const gridSpaceX = canvas.width/7 > 120 ? 120 : canvas.width/7;
+                                const gridSpaceY = canvas.height/3 > 120 ? 120 : canvas.height/3;
+                                var index = 0;
+                                for (var i = 0; i < 7; i++){
+                                for (var j = 0; j < 3; j++){
+                                    
+                                    // const posX = (canvas.width/2) + (gridSpace * i) - gridSpace*3;
+                                    // const posY = (canvas.height/2) + (gridSpace * j) - gridSpace;
+                                    const posX = gridSpaceX/2 + (gridSpaceX*i);
+                                    const posY = gridSpaceY/2 + (gridSpaceY*j);
+
+                                    gridPositionsX[index] = posX;
+                                    gridPositionsY[index] = posY;
+                                    
+                                    //SET THE ALPHA
+                                    const dist = (Math.pow(selectorX - posX,2) + Math.pow(selectorY - posY,2) )/10000;
+                                    const alpha = Math.pow(map(dist,0,40,1,0.25),8);
+                                    ctx.globalAlpha = alpha > .25 ? alpha : .25;
+                                    ctx.drawImage(emojis[index], posX-50,posY-50, 90, 90);
+                                    ctx.globalAlpha = 1;
+                                    index++;
+                                }
+                                }
+
+
+                                }
+
+                                //CALLS API AND SETS 'CLASSIFIEDEMOJIINDEX'
+                                async function callApiAndUpdateTargetPos(userInputString){
+                                
+                                    const url = 'http://35.182.212.58:8080/ClassifyEmoji?msg=' + userInputString;
+                                    const response = await fetch(url);
+                                    const response2 = await response.json();
+                                
+                                    const index = convertEmojiIdToIndex(response2.EmojiID);
+                                    
+                                
+                                    if (index !== "undefined"){
+                                    console.log("still running" + index);
+                                    classifiedEmojiIndex = index;
+                                    updateTargetPosition();
+                                    }
+                                }
+
+                                //EVERYTIME THE USER CHANGES THE INPUT 
+                                input.addEventListener('input', updateValue);
+
+                                function updateValue(e) {
+                                userInputString = e.target.value;
+                                callApiAndUpdateTargetPos(userInputString);
+                                
+                                }
+                                function loadEmojiImages() {
+                                //HERES WHERE YOU CHOOSE THE PATH TO THE IMAGES
+                                for (var i = 0; i < 21; i++){
+                                    const path = "/Emoji" + i + ".png";
+                                    const image = new Image();
+                                    image.src = path;
+                                    image.onload = ()=>{ 
+                                    emojisLoaded += 1;
+                                    }
+                                    emojis.push(image);
+                                }
+                                }
+                                loadEmojiImages();
+
+
+
+                                //ROUNDED RECTANGLE FUNCITON, USED TO DRAW THE PURPLE 'SELECTOR'
+                                CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius) {
+                                x -= width/2;
+                                y-= height/2;
+                                if (width < 2 * radius) radius = width / 2;
+                                if (height < 2 * radius) radius = height / 2;
+                                this.beginPath();
+                                this.moveTo(x + radius, y);
+                                this.arcTo(x + width, y, x + width, y + height, radius);
+                                this.arcTo(x + width, y + height, x, y + height, radius);
+                                this.arcTo(x, y + height, x, y, radius);
+                                this.arcTo(x, y, x + width, y, radius);
+                                this.closePath();
+                                return this;
+                                }
+
+                                //THIS TAKES AN EMOJIID AND CONVERTS IT TO AN INDEX IN THE EMOJI GRID
+                                function convertEmojiIdToIndex(emojiId){
+                                const ids = ["2702", "1F388","26BE","1F36A","1F354", "1F4FA","1F526","1F992","1F3B9","1F916"];
+                                
+                                for (var i = 0; i < ids.length;i++){
+                                    if (ids[i] === emojiId) return i;
+                                }
+                                return "undefined";
+
+                                }
+
+                                //MAPS A NUMBER FROM ONE RANGE TO ANOTHER
+                                const map = (value, x1, y1, x2, y2) => {
+                                
+                                return (value - x1) * (y2 - x2) / (y1 - x1) + x2;
+                                }
+                                console.log("shiloh")
+                            </script>
+                        </canvas>
+                      </div>
+                      
+                    </div>
+                  </div>
+            </section>
+
+        </canvas>
+    
+                  
+    
+
+
+    
+    
+    
+</body>
+</html>
